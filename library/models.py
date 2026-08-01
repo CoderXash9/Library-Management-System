@@ -43,3 +43,27 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class IssueRecord(models.Model):
+    STATUS_CHOICES = [
+        ("Issued", "Issued"),
+        ("Returned", "Returned"),
+        ("Overdue", "Overdue"),
+    ]
+
+    book = models.ForeignKey(
+        Book, on_delete=models.CASCADE, related_name="issue_records"
+    )
+
+    member = models.ForeignKey(
+        Member, on_delete=models.CASCADE, related_name="borrowed_books"
+    )
+
+    issue_date = models.DateField(auto_now_add=True)
+    due_date = models.DateField()
+    return_date = models.DateField(blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="issued")
+
+    def __str__(self):
+        return f"{self.member.name} borrowed {self.book.title}"
