@@ -35,4 +35,12 @@ class IssueRecordViewSet(viewsets.ModelViewSet):
 class IssueBookAPIView(APIView):
 
     def post(self, request):
-        pass
+
+        book_id = request.data.get("book")
+        member_id = request.data.get("member")
+
+        if not book_id or not member_id:
+            return Response(
+                {"error": "Book ID and Member ID are required ."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
