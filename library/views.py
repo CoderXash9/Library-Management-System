@@ -48,3 +48,9 @@ class IssueBookAPIView(APIView):
 
         book = get_object_or_404(Book, id=book_id)
         member = get_object_or_404(Member, id=member_id)
+
+        if book.available_copies <= 0:
+            return Response(
+                {"error": "Book is currently unavailable."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
