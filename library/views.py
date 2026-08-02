@@ -54,3 +54,13 @@ class IssueBookAPIView(APIView):
                 {"error": "Book is currently unavailable."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+        existing_issue = IssueRecord.objects.filter(
+            book=book, member=member, status="Issued"
+        ).exists()
+
+        if existing_issue:
+            return Response(
+                {"error": "This member is already registered."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
