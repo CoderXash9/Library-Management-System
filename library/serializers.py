@@ -14,3 +14,10 @@ class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
         fields = "__all__"
+
+
+class IssueRecordSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = IssueRecord
+        fields = "__all__"
