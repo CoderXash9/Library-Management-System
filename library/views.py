@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -44,3 +45,6 @@ class IssueBookAPIView(APIView):
                 {"error": "Book ID and Member ID are required ."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+        book = get_object_or_404(Book, id=book_id)
+        member = get_object_or_404(Member, id=member_id)
