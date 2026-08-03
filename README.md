@@ -142,7 +142,7 @@ http://127.0.0.1:8000/api/docs/
 
 🔗 GitHub: https://github.com/CoderXash9
 
-💼 LinkedIn: *(Add your LinkedIn profile here)*
+💼 LinkedIn: www.linkedin.com/in/ashwinicodes
 
 ---
 
