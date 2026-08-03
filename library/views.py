@@ -37,48 +37,46 @@ class IssueBookAPIView(APIView):
 
     def post(self, request):
 
-    book_id = request.data.get("book")
-    member_id = request.data.get("member")
+        book_id = request.data.get("book")
+        member_id = request.data.get("member")
 
-    if not book_id or not member_id:
-        return Response(
-            {"error": "Book ID and Member ID are required."},
-            status=status.HTTP_400_BAD_REQUEST
+        if not book_id or not member_id:
+            return Response(
+                {"error": "Book ID and Member ID are required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        book = get_object_or_404(Book, id=book_id)
+        member = get_object_or_404(Member, id=member_id)
+
+        if book.available_copies <= 0:
+            return Response(
+                {"error": "Book is currently unavailable."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        existing_issue = IssueRecord.objects.filter(
+            book=book, member=member, status="Issued"
+        ).exists()
+
+        if existing_issue:
+            return Response(
+                {"error": "This member already has this book issued."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        issue = IssueRecord.objects.create(
+            book=book,
+            member=member,
         )
 
-    book = get_object_or_404(Book, id=book_id)
-    member = get_object_or_404(Member, id=member_id)
+        book.available_copies -= 1
+        book.save()
 
-    if book.available_copies <= 0:
         return Response(
-            {"error": "Book is currently unavailable."},
-            status=status.HTTP_400_BAD_REQUEST
+            {
+                "message": "Book issued successfully.",
+                "issue_id": issue.id,  # type: ignore
+            },
+            status=status.HTTP_201_CREATED,
         )
-
-    existing_issue = IssueRecord.objects.filter(
-        book=book,
-        member=member,
-        status="Issued"
-    ).exists()
-
-    if existing_issue:
-        return Response(
-            {"error": "This member already has this book issued."},
-            status=status.HTTP_400_BAD_REQUEST
-        )
-
-    issue = IssueRecord.objects.create(
-        book=book,
-        member=member,
-    )
-
-    book.available_copies -= 1
-    book.save()
-
-    return Response(
-        {
-            "message": "Book issued successfully.",
-            "issue_id": issue.id, # type: ignore
-        },
-        status=status.HTTP_201_CREATED
-    )
