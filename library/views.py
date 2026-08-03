@@ -64,3 +64,10 @@ class IssueBookAPIView(APIView):
                 {"error": "This member is already registered."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+        issue = IssueRecord.objects.create(
+            book = book,
+            member = member,
+        )
+        book.available_copies -= 1
+        book.save()
