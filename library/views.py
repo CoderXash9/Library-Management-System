@@ -81,16 +81,22 @@ class IssueBookAPIView(APIView):
             status=status.HTTP_201_CREATED,
         )
 
+
 class ReturnBookAPIView(APIView):
 
-    def post(self,request):
+    def post(self, request):
 
         issue_id = request.data.get("issue_id")
 
         if not issue_id:
             return Response(
-                {"error" : "Issue ID is required"},
-                status = status.HTTP_400_BAD_REQUEST
+                {"error": "Issue ID is required"}, status=status.HTTP_400_BAD_REQUEST
             )
 
-        issue = get_object_or_404(IssueRecord,id = issue_id)
+        issue = get_object_or_404(IssueRecord, id=issue_id)
+
+        if issue.status == "Returned":
+            return Response(
+                {"error": "Book has already been returned."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
