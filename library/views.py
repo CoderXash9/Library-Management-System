@@ -1,3 +1,4 @@
+from datetime import date
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -100,3 +101,6 @@ class ReturnBookAPIView(APIView):
                 {"error": "Book has already been returned."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+        issue.status = "Returned"
+        
