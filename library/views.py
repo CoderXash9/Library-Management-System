@@ -1,3 +1,5 @@
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
 from datetime import date, timedelta
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
@@ -25,6 +27,26 @@ class MemberViewSet(viewsets.ModelViewSet):
 
 
 class BookViewSet(viewsets.ModelViewSet):
+    filter_backends = [
+        DjangoFilterBackend,
+        SearchFilter,
+        OrderingFilter,
+    ]
+
+    filterset_fields = [
+        "genre",
+        "author",
+    ]
+
+    search_fields = [
+        "title",
+        "isbn",
+    ]
+
+    ordering_fields = [
+        "published_date",
+        "title",
+    ]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
