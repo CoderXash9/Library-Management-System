@@ -92,3 +92,5 @@ class ReturnBookAPIView(APIView):
                 {"error" : "Issue ID is required"},
                 status = status.HTTP_400_BAD_REQUEST
             )
+
+        issue = get_object_or_404(IssueRecord,id = issue_id)
