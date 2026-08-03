@@ -1,5 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from .views import ReturnBookAPIView
 
 from .views import (
     AuthorViewSet,
@@ -15,4 +16,7 @@ router.register("members", MemberViewSet)
 router.register("books", BookViewSet)
 router.register("IssueRecords", IssueRecordViewSet)
 
-urlpatterns = [path("", include(router.urls))]
+urlpatterns = [
+    path("", include(router.urls)),
+    path("return-book/", ReturnBookAPIView.as_view(), name="return-book"),
+]
