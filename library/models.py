@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class Author(models.Model):
@@ -24,6 +25,12 @@ class Member(models.Model):
 
 
 class Book(models.Model):
+    def clean(self):
+        if self.available_copies > self.total_copies:
+            raise ValidationError(
+                "Available copies cannot be greater than total copies."
+            )
+
     GENRE_CHOICES = [
         ("Programming", "Programming"),
         ("Science", "Science"),
