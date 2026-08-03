@@ -1,4 +1,4 @@
-from datetime import date , timedelta
+from datetime import date, timedelta
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -69,6 +69,7 @@ class IssueBookAPIView(APIView):
         issue = IssueRecord.objects.create(
             book=book,
             member=member,
+            due_date=date.today() + timedelta(days=14),
         )
 
         book.available_copies -= 1
