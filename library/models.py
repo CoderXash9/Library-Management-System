@@ -63,7 +63,7 @@ class IssueRecord(models.Model):
     issue_date = models.DateField(auto_now_add=True)
     due_date = models.DateField()
     return_date = models.DateField(blank=True, null=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="issued")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="Issued")
 
     def __str__(self):
         return f"{self.member.name} borrowed {self.book.title}"
