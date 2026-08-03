@@ -20,14 +20,17 @@ from .serializers import (
 class AuthorViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class MemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class BookViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [
         DjangoFilterBackend,
         SearchFilter,
@@ -55,9 +58,10 @@ class BookViewSet(viewsets.ModelViewSet):
 class IssueRecordViewSet(viewsets.ModelViewSet):
     queryset = IssueRecord.objects.all()
     serializer_class = IssueRecordSerializer
-
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 class IssueBookAPIView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def post(self, request):
 
@@ -108,6 +112,7 @@ class IssueBookAPIView(APIView):
 
 
 class ReturnBookAPIView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def post(self, request):
 
