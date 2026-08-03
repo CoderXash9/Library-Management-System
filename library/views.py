@@ -110,3 +110,7 @@ class ReturnBookAPIView(APIView):
 
         book.available_copies += 1
         book.save()
+
+        return Response(
+            {"message": "Book returned successfully."}, status=status.HTTP_200_OK
+        )
