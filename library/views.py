@@ -104,4 +104,4 @@ class ReturnBookAPIView(APIView):
 
         issue.status = "Returned"
         issue.return_date = date.today()
-        
+        issue.save() #Without this, the changes stay only in memory.
