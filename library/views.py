@@ -103,4 +103,5 @@ class ReturnBookAPIView(APIView):
             )
 
         issue.status = "Returned"
+        issue.return_date = date.today()
         
