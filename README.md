@@ -75,11 +75,8 @@ SQLite Database
 
 ## 📸 Screenshots
 
-> Add screenshots here later.
-
-- 🖥️ Django Admin
-- 📑 Swagger UI
-- 📚 API Responses
+ ![image alt](https://github.com/CoderXash9/Library-Management-System/blob/8ab6580ed17187afb73f08d630b4746a24a84f43/Screenshot%202026-08-01%20235739.png)
+ ![image alt](https://github.com/CoderXash9/Library-Management-System/blob/8ab6580ed17187afb73f08d630b4746a24a84f43/Screenshot%202026-08-02%20153758.png)
 
 ---
 
